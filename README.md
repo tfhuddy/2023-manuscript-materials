@@ -9,6 +9,6 @@ Test case usage:
 
 (2) Run example script to produce a linear THR backbone example:
 
-/path/to/your/rosetta/install/main/source/bin/rosetta_scripts.hdf5.linuxgccrelease -indexed_structure_store:fragment_store=/path/to/your/downloaded/loop/fragment/database.h5 -parser:protocol example.xml -s dummy.pdb -corrections::beta_nov16 true
+/path/to/your/rosetta/install/main/source/bin/rosetta_scripts.hdf5.linuxgccrelease -indexed_structure_store:fragment_store=/path/to/your/downloaded/loop/fragment/database.h5 -parser:protocol example.xml -s dummy.pdb
 
 (3) Edit annotated parameters in the example.xml to vary the geometry of the THR that is produced

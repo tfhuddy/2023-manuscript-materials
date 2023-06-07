@@ -1,0 +1,51 @@
+<ROSETTASCRIPTS>
+
+    ## 1 ## Documentation for everything used here can be found at (https://new.rosettacommons.org/docs/latest/scripting_documentation/RosettaScripts/RosettaScripts). First, visit the bottom of the text to see which protocols will be used.
+
+    <SCOREFXNS>
+    </SCOREFXNS>
+
+    <RESIDUE_SELECTORS>
+    </RESIDUE_SELECTORS>
+
+    <TASKOPERATIONS>
+    </TASKOPERATIONS>
+
+
+
+    <MOVERS>
+        ## 3 ## This will create an alpha helix a0 at the origin of xyz space, as well as helix b0 and helix a1 (as separate chains A, B, and C). This is set to use 22 residue-long helices and crick_params_file of "alpha_helix" (https://new.rosettacommons.org/docs/latest/scripting_documentation/RosettaScripts/Movers/movers_pages/MakeBundleMover) but both can be varied. "alpha_helix_100" also gives good straight helices. Use reset="true" to ignore the dummy pdb input and make new helices from scratch.
+
+        <MakeBundle name="place_helices" use_degrees="true" helix_length="22" crick_params_file="alpha_helix" set_bondlengths="true" set_bondangles="true" set_dihedrals="true" reset="true">
+            #helix a0
+            <Helix r0="0" delta_omega0="0" invert="true" delta_omega1="0" z1_offset="0"/> 
+            #helix b0, with its position defined in polar coordinates as 10 angstroms away along a vector that is at the 60 degree direction in the xy plane. Set invert option to opposite of a0 so helices can be looped together (end of a0 into start of b0). All parameters of b0 here can be freely sampled without affecting repeat trajectory as long as the helix stays within looping range.
+            <Helix r0="10" delta_omega0="60" invert="false" delta_omega1="0" z1_offset="0"/>
+            #helix a1, set to be the same as helix a0 except moved 10 angstroms away along the 0 degree direction in the xy plane.
+            If delta_omega1 is set to same value as helix a0, the repeat will propagate linearly. If it differs, it will curve. If z1_offset is changed away from matching that of helix a0, then the THR will do a linear stair-stepping repeat pattern.
+            <Helix r0="10" delta_omega0="0" invert="true" delta_omega1="0" z1_offset="0"/>
+        </MakeBundle>
+
+        ## 4 ## Help Rosetta make sure that chains are in the intended order ABC=123.
+        <SwitchChainOrder name="verify_chain_order" chain_order="123" />
+
+
+        ## 5 ## Now the helices will be looped together by finding fragments from natural structures that match the gaps between them. This will fail for some geometries if a close match is not found; sample the available DOFs to find solutions that succeed.
+        <ConnectChainsMover name="loop_helices" chain_connections="[A+B+C]" loopLengthRange="2,5"/>
+
+        ## 6 ## Now there is a single chain of the 3 helices looped together, but we have some identical helical structure of a0 in the a1 helix. Because we used 22-residue helices, we are going to tell this mover to propagate the repeat assuming that there are 22 residues of duplicated structure.
+        <RepeatPropagationMover name="repeatify" numb_repeats="8" extract_repeat_info_from_pose="true" start_pose_numb_repeats="1" ideal_repeat="false" start_pose_duplicate_residues="22" first_template_res="1"/>
+
+    </MOVERS>
+
+    <FILTERS>
+    </FILTERS>
+
+    <PROTOCOLS>
+        ## 2 ## The movers will be executed in this order from top to bottom. For each named mover, find it defined above. 
+        <Add mover="place_helices"/>
+        <Add mover="verify_chain_order"/>
+        <Add mover="loop_helices"/>
+        <Add mover="repeatify"/>
+    </PROTOCOLS>
+</ROSETTASCRIPTS>

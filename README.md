@@ -1,7 +1,7 @@
 # 2023-manuscript-materials
 One item here is a dummy pdb, which is an example of a straight alpha helix structure. 
 
-This is used as an input to Rosetta (tested with Rosetta 3.13 (https://rosettacommons.org/) on Ubuntu 22.04), and is processed using the example script provided.
+This is used as a dummy input (it will be replaced by helical backbones freshly generated from Crick parameters) to Rosetta (tested with Rosetta 3.13 (https://rosettacommons.org/) on Ubuntu 22.04), and is processed using the example script provided.
 
 Test case usage:
 

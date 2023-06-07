@@ -35,7 +35,8 @@
 
         ## 6 ## Now there is a single chain of the 3 helices looped together, but we have some identical helical structure of a0 in the a1 helix. Because we used 22-residue helices, we are going to tell this mover to propagate the repeat assuming that there are 22 residues of duplicated structure.
         <RepeatPropagationMover name="repeatify" numb_repeats="8" extract_repeat_info_from_pose="true" start_pose_numb_repeats="1" ideal_repeat="false" start_pose_duplicate_residues="22" first_template_res="1"/>
-
+        
+        ## 7 ## Tune parameters to your needs, sample available DOFs to make several structures, sequence design all with ProteinMPNN, and see what is predicted to fold nicely with AlphaFold2.
     </MOVERS>
 
     <FILTERS>

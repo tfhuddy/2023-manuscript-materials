@@ -5,7 +5,7 @@ This is used as a dummy input (it will be replaced by helical backbones freshly 
 
 Test case usage:
 
-(1) Have 6 GB of cpu memory available and the Rosetta command-line-interface executable installed, and the loop fragment database downloaded (files.ipd.uw.edu/pub/modular_repeat_protein_2020/ss_grouped_vall_all.h5_
+(1) Have 6 GB of cpu memory available and the Rosetta command-line-interface executable installed, and the loop fragment database downloaded (files.ipd.uw.edu/pub/modular_repeat_protein_2020/ss_grouped_vall_all.h5)
 
 (2) Run example script to produce a linear THR backbone example:
 
